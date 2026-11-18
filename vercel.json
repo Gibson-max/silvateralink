@@ -1,0 +1,8 @@
+{
+  "functions": {
+    "api/[...path].js": {
+      "includeFiles": "backend/schema.sql",
+      "maxDuration": 15
+    }
+  }
+}
