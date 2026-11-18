@@ -11,7 +11,7 @@ const { issueToken, requireAuth, requireAdmin } = require('./auth');
 const app = express();
 const origins = (process.env.SITE_ORIGIN || '').split(',').map(x => x.trim()).filter(Boolean);
 app.disable('x-powered-by');
-app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' }, contentSecurityPolicy: false }));
+app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' }, contentSecurityPolicy: { directives: { defaultSrc: ["'self'"], scriptSrc: ["'self'", "'unsafe-inline'", 'https://cdn.tailwindcss.com'], styleSrc: ["'self'", "'unsafe-inline'"], imgSrc: ["'self'", 'data:', 'https:'], connectSrc: ["'self'"], fontSrc: ["'self'", 'https:', 'data:'] } } }));
 app.use(cors({ origin(origin, cb) { if (!origin || origins.includes(origin)) return cb(null, true); cb(new Error('Origin is not allowed by CORS.')); }, credentials: true }));
 app.use(express.json({ limit: '1mb' }));
 app.use(cookieParser());
