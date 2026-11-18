@@ -37,3 +37,10 @@ INSERT INTO site_content(content_key,content_value) VALUES
 ('profile_heading','"Company Profile"'),
 ('footer_description','"Professional forestry, environmental, agronomy, and sustainable land-management solutions."')
 ON CONFLICT(content_key) DO NOTHING;
+
+INSERT INTO site_content(content_key,content_value) VALUES
+('seo_title','"Silvateralink Rwanda Ltd | Growing Sustainable Solutions"'),
+('seo_description','"Professional forestry, environmental, agronomy and sustainable land-management services in Rwanda."'),
+('seo_keywords','"forestry Rwanda, environmental consulting, agronomy, agroforestry, forest restoration, GIS mapping"'),
+('og_image','""')
+ON CONFLICT(content_key) DO NOTHING;
