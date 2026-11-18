@@ -15,3 +15,25 @@ INSERT INTO site_content(content_key,content_value) VALUES
 ('project_intro','"Our team brings practical experience from forestry, environmental management, agroforestry, GIS, community engagement and sustainable development projects across Rwanda."'),
 ('contact','{"phone":"+250 787 103 957","email":"forestgaspard@gmail.com","location":"Rubavu District, Western Province, Rwanda","office_hours":"Monday - Saturday, 8:00 AM - 5:00 PM CAT"}'::jsonb)
 ON CONFLICT(content_key) DO NOTHING;
+
+INSERT INTO site_content(content_key,content_value) VALUES
+('about_heading','"Who We Are"'),
+('about_intro','"Silvateralink Rwanda Ltd is a Rwandan private company established to provide professional solutions in forestry, environmental management, agronomy, and sustainable agriculture."'),
+('about_detail','"We work collaboratively with farmers, cooperatives, communities, private organizations, NGOs, government institutions, and development partners to promote sustainable management of natural resources and productive landscapes across Rwanda."'),
+('about_highlight_title','"Collaborative Ecosystem"'),
+('about_highlight_text','"Our field operations integrate local farmers and technical specialists, bridging technical environmental science with community action."'),
+('services_heading','"Comprehensive Solutions"'),
+('services_intro','"Explore our professional offerings tailored for environmental stewardship and agricultural growth."'),
+('expertise_heading','"Domain Specializations"'),
+('expertise_intro','"Combining field practice, environmental science, spatial mapping, and community mobilization."'),
+('approach_heading','"How We Deliver Results"'),
+('approach_intro','"A structured 6-step framework guaranteeing evidence-based execution and long-term sustainability."'),
+('team_heading','"Experienced Leadership"'),
+('director_name','"Gaspard Habamenshi"'),
+('director_role','"Managing Director"'),
+('director_bio','"Gaspard Habamenshi is a forestry and environmental professional with experience in forestry, agroforestry, environmental management, GIS, community engagement and field project implementation."'),
+('team_notice_title','"Multidisciplinary Technical Team"'),
+('team_notice_text','"Silvateralink works with qualified technical professionals and associate consultants according to project requirements, including specialists in forestry, environment, agronomy, GIS and community development."'),
+('profile_heading','"Company Profile"'),
+('footer_description','"Professional forestry, environmental, agronomy, and sustainable land-management solutions."')
+ON CONFLICT(content_key) DO NOTHING;
