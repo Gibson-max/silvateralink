@@ -1,7 +1,8 @@
 /* Public website integration for the Silvateralink content API.
    Set window.SILVERALINK_API_BASE before this file if the API has another origin. */
 (() => {
-  const configuredBase = window.SILVERALINK_API_BASE || document.querySelector('meta[name="silvateralink-api-base"]')?.content || window.location.origin;\n  const base = configuredBase.replace(/\/$/, '');
+  const configuredBase = window.SILVERALINK_API_BASE || document.querySelector('meta[name="silvateralink-api-base"]')?.content || window.location.origin;
+  const base = configuredBase.replace(/\/$/, '');
   const api = path => base + path;
   const setText = (selector, value) => {
     const node = document.querySelector(selector);
