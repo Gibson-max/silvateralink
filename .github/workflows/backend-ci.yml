@@ -24,7 +24,7 @@ jobs:
         working-directory: backend
         run: npm install --ignore-scripts
       - name: Check serverless entrypoint syntax
-        run: node --check 'api/[...path].js'
+        run: node --check 'backend/api/[...path].js'
       - name: Check backend JavaScript syntax
         working-directory: backend
         run: npm run check
