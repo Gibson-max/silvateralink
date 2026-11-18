@@ -11,7 +11,7 @@ const { issueToken, requireAuth, requireAdmin } = require('./auth');
 const app = express();
 const origins = (process.env.SITE_ORIGIN || '').split(',').map(x => x.trim()).filter(Boolean);
 app.disable('x-powered-by');
-app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
+app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' }, contentSecurityPolicy: false }));
 app.use(cors({ origin(origin, cb) { if (!origin || origins.includes(origin)) return cb(null, true); cb(new Error('Origin is not allowed by CORS.')); }, credentials: true }));
 app.use(express.json({ limit: '1mb' }));
 app.use(cookieParser());
@@ -76,6 +76,7 @@ app.post('/api/admin/testimonials',asyncRoute(async(req,res)=>{const p=z.object(
 app.patch('/api/admin/testimonials/:id',asyncRoute(async(req,res)=>{const p=z.object({is_published:z.boolean()}).safeParse(req.body);if(!p.success)return res.status(400).json({error:'Invalid publication setting.'});const q=await pool.query('UPDATE testimonials SET is_published=$1 WHERE id=$2 RETURNING *',[p.data.is_published,req.params.id]);if(!q.rowCount)return res.status(404).json({error:'Testimonial not found.'});await audit(req.admin.sub,'testimonial_visibility_changed','testimonial',req.params.id);res.json({item:q.rows[0]});}));
 app.delete('/api/admin/testimonials/:id',requireAdmin,asyncRoute(async(req,res)=>{await pool.query('DELETE FROM testimonials WHERE id=$1',[req.params.id]);await audit(req.admin.sub,'testimonial_deleted','testimonial',req.params.id);res.json({message:'Testimonial deleted.'});}));
 app.get('/api/admin/audit',requireAdmin,asyncRoute(async(req,res)=>{const q=await pool.query('SELECT a.id,a.action,a.entity_type,a.entity_id,a.created_at,u.email FROM audit_logs a LEFT JOIN admin_users u ON u.id=a.admin_id ORDER BY a.created_at DESC LIMIT 100');res.json({items:q.rows});}));
+app.get(['/admin','/admin/'],(req,res)=>res.sendFile(require('node:path').join(__dirname,'..','admin','index.html')));
 app.use((req,res)=>res.status(404).json({error:'Route not found.'}));
 app.use((err,req,res,next)=>{console.error(err);if(res.headersSent)return next(err);res.status(err.status||500).json({error:process.env.NODE_ENV==='production'?'Something went wrong. Please try again.':err.message});});
 module.exports=app;
