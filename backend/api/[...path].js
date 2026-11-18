@@ -17,6 +17,8 @@ async function prepare() {
   }
 }
 module.exports = async function handler(req, res) {
+  const route = req.url?.split('?')[0] || '';
+  if (route === '/api/health' || route === '/admin' || route === '/admin/') return app(req, res);
   try {
     initialization ||= prepare();
     await initialization;
