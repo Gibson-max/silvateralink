@@ -17,6 +17,14 @@
       setText('#home > div > div > div:first-child > p:nth-of-type(2)', c.hero_description);
       setText('#home .font-heading.font-bold.text-lg', c.company_slogan);
       setText('#projects blockquote', c.project_intro);
+      if (c.contact && typeof c.contact === 'object') {
+        if (c.contact.phone) document.querySelectorAll('a[href^="tel:"]').forEach(node => { node.href = 'tel:' + c.contact.phone.replace(/[^+0-9]/g, ''); node.textContent = c.contact.phone; });
+        if (c.contact.email) document.querySelectorAll('a[href^="mailto:"]').forEach(node => { node.href = 'mailto:' + c.contact.email; node.textContent = c.contact.email; });
+        if (c.contact.location) {
+          const location = document.querySelector('#contact .text-slate-600.text-sm');
+          if (location) location.textContent = c.contact.location;
+        }
+      }
       if (typeof c.welcome_message === 'string' && c.welcome_message) {
         let banner = document.getElementById('sl-welcome-message');
         if (!banner) {
