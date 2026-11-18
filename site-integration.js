@@ -17,6 +17,23 @@
       setText('#home > div > div > div:first-child > p:nth-of-type(2)', c.hero_description);
       setText('#home .font-heading.font-bold.text-lg', c.company_slogan);
       setText('#projects blockquote', c.project_intro);
+      const pageFields = [
+        ['#about h2', c.about_heading],
+        ['#about .grid.lg\\:grid-cols-12 > div:first-child > p.text-lg', c.about_intro],
+        ['#about .grid.lg\\:grid-cols-12 > div:first-child > p.text-slate-600', c.about_detail],
+        ['#about h4', c.about_highlight_title],
+        ['#about .grid.lg\\:grid-cols-12 > div:first-child > div p', c.about_highlight_text],
+        ['#services h2', c.services_heading], ['#services h2 + p', c.services_intro],
+        ['#expertise h2', c.expertise_heading], ['#expertise h2 + p', c.expertise_intro],
+        ['#approach h2', c.approach_heading], ['#approach h2 + p', c.approach_intro],
+        ['#team h2', c.team_heading], ['#team h3', c.director_name],
+        ['#team .text-brand-400.text-xs.font-semibold', c.director_role],
+        ['#team blockquote', c.director_bio], ['#team h4', c.team_notice_title],
+        ['#team .max-w-4xl.bg-slate-50 p', c.team_notice_text],
+        ['#profile h2', c.profile_heading],
+        ['footer .md\\:col-span-5 p.text-slate-400.text-sm', c.footer_description]
+      ];
+      pageFields.forEach(([selector, value]) => setText(selector, value));
       if (c.contact && typeof c.contact === 'object') {
         if (c.contact.phone) document.querySelectorAll('a[href^="tel:"]').forEach(node => { node.href = 'tel:' + c.contact.phone.replace(/[^+0-9]/g, ''); node.textContent = c.contact.phone; });
         if (c.contact.email) document.querySelectorAll('a[href^="mailto:"]').forEach(node => { node.href = 'mailto:' + c.contact.email; node.textContent = c.contact.email; });
