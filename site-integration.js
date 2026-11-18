@@ -34,6 +34,22 @@
         ['footer .md\\:col-span-5 p.text-slate-400.text-sm', c.footer_description]
       ];
       pageFields.forEach(([selector, value]) => setText(selector, value));
+      if (typeof c.seo_title === 'string' && c.seo_title) document.title = c.seo_title;
+      if (typeof c.seo_description === 'string' && c.seo_description) {
+        let meta = document.querySelector('meta[name="description"]');
+        if (!meta) { meta = document.createElement('meta'); meta.name = 'description'; document.head.appendChild(meta); }
+        meta.content = c.seo_description;
+      }
+      if (typeof c.seo_keywords === 'string' && c.seo_keywords) {
+        let meta = document.querySelector('meta[name="keywords"]');
+        if (!meta) { meta = document.createElement('meta'); meta.name = 'keywords'; document.head.appendChild(meta); }
+        meta.content = c.seo_keywords;
+      }
+      if (typeof c.og_image === 'string' && c.og_image) {
+        let meta = document.querySelector('meta[property="og:image"]');
+        if (!meta) { meta = document.createElement('meta'); meta.setAttribute('property', 'og:image'); document.head.appendChild(meta); }
+        meta.content = c.og_image;
+      }
       if (c.contact && typeof c.contact === 'object') {
         if (c.contact.phone) document.querySelectorAll('a[href^="tel:"]').forEach(node => { node.href = 'tel:' + c.contact.phone.replace(/[^+0-9]/g, ''); node.textContent = c.contact.phone; });
         if (c.contact.email) document.querySelectorAll('a[href^="mailto:"]').forEach(node => { node.href = 'mailto:' + c.contact.email; node.textContent = c.contact.email; });
